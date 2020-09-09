@@ -26,6 +26,7 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) 
 
         return accounting.formatNumber(result, 0, ' ');
     }, [ order, item ]);
+    const isEmptyP = isEmptyPrice(price)
 
     return (
         <div className="Place">
@@ -104,8 +105,8 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) 
             <footer className="Place__footer">
                 <Link
                     to={`/basket/${area.id}/${item.id}`}
-                    className={classNames('Place__order', {'Place__order--empty':  !+price})}
-                    onClick={e => { +price || e.preventDefault() }}
+                    className={classNames('Place__order', {'Place__order--empty': isEmptyP})}
+                    onClick={e => { isEmptyP && e.preventDefault() }}
                 >
                     Оформить заказ ({price})
                 </Link>
@@ -119,5 +120,10 @@ Place.defaultProps = {
     onIncrementPosition: () => {},
     onDecrementPosition: () => {},
 };
+
+function isEmptyPrice(price) {
+  // eslint-disable-next-line
+  return price == '0' || !price
+}
 
 export default Place;
