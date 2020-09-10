@@ -165,7 +165,7 @@ const App = () => {
 						setFinishedOrder={({ itemId }) => {
 							const nextStatuses = {...orderStatuses};
 
-							nextStatuses[itemId] = 'DONE';
+							nextStatuses[itemId] = 'CANCELED';
 
 							setOrderStatuses(nextStatuses);
 							localStorage.setItem('orderStatuses', JSON.stringify(nextStatuses));
@@ -208,6 +208,7 @@ const App = () => {
 											area.items.forEach(item => {
 												item.foods.forEach(food => {
 													if (food.id in order) {
+                            debugger
 														const status = item.id === itemId ? 'ACTIVE' : 'DONE';
 
 														nextOrderStatuses[item.id] = status;
@@ -243,6 +244,8 @@ const App = () => {
 											area.items.forEach(item => {
 												item.foods.forEach(food => {
 													if (food.id in order) {
+                            debugger
+
 														const status = item.id === itemId ? 'ACTIVE' : 'DONE';
 
 														nextOrderStatuses[item.id] = status;
