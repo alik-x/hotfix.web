@@ -6,12 +6,13 @@ import Checkbox from './Checkbox';
 
 import edit from '../img/edit.svg';
 import './place.css';
+import { isEmptyPrice } from '../utils';
 
 
 const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
-  const [ faster, setFaster ] = useState(true);
-  const [ time, setTime ] = useState('');
-  const [ selfService, setSelfService ] = useState(false);
+  const [ faster, setFaster ] = useState(order.details?.faster || true);
+  const [ time, setTime ] = useState(order.details?.time || '');
+  const [ selfService, setSelfService ] = useState(order.details?.selfService || false);
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
 
@@ -33,6 +34,8 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
 
     return [ accounting.formatNumber(result, 0, ' '), products ];
   }, [ order, item ]);
+
+  const isEmptyP = isEmptyPrice(price)
 
   return (
     <div className="Place">
@@ -148,7 +151,11 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
         </div>
       </div>
       <footer className="Place__footer">
-        <Link to={`/order/${area.id}/${item.id}`} className="Place__order">
+        <Link
+          to={`/order/${area.id}/${item.id}`}
+          className="Place__order"
+          onClick={e => { isEmptyP && e.preventDefault() }}
+        >
           Оплатить {price}
         </Link>
       </footer>

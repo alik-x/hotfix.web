@@ -6,6 +6,7 @@ import classNames from 'classnames';
 
 import edit from '../img/edit.svg';
 import './place.css';
+import { isEmptyPrice } from '../utils';
 
 
 const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) => {
@@ -120,10 +121,5 @@ Place.defaultProps = {
     onIncrementPosition: () => {},
     onDecrementPosition: () => {},
 };
-
-function isEmptyPrice(price) {
-  // eslint-disable-next-line
-  return price == '0' || !price
-}
 
 export default Place;

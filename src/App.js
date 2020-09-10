@@ -197,7 +197,12 @@ const App = () => {
 									} else {
 										updatedOrder[id] = {
 											item: foodsMap[id],
-											count: 1,
+                      count: 1,
+                      details: {
+                        faster: false,
+                        time: '',
+                        selfService: false
+                      }
 										};
 									}
 
@@ -208,9 +213,7 @@ const App = () => {
 											area.items.forEach(item => {
 												item.foods.forEach(food => {
 													if (food.id in order) {
-                            debugger
 														const status = item.id === itemId ? 'ACTIVE' : 'DONE';
-
 														nextOrderStatuses[item.id] = status;
 													}
 												});
